@@ -83,6 +83,15 @@ string books[5];
 
   
     }
+    void delete_book(){
+        ifstream File1("LDB.txt");
+        if(!File1){
+            cout<<"File not found"<<endl;
+            return;
+        }
+        
+
+    }
   
 };
 
@@ -95,7 +104,7 @@ int main() {
     cout << "What do you wish to do? \n"
          << "a. Add Book \n"
          << "b. Check all the books \n"
-         << "c. Checking the issued book \n"
+         << "c. Delete a book \n"
          << endl;
     cin >> a;
 
