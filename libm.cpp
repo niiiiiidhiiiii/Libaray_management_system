@@ -4,11 +4,14 @@
 #include <vector>
 using namespace std;
 
-int lin_search(string a[], int size, string n) {
+int lin_search(string a[], int size, string n)
+{
 
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; i++)
+    {
 
-        if (a[i] == n) {
+        if (a[i] == n)
+        {
             return i;
         }
     }
@@ -70,10 +73,10 @@ public:
 
     void add_book()
     {
-        ifstream File1("LDB.txt");
+        std::ifstream File1("LDB.txt");
 
         string line;
-        while (getline(File1, line))
+        while (std::getline(File1, line))
         {
             if (!line.empty() && i < 5)
             {
@@ -164,23 +167,51 @@ public:
         string c;
         cout << "What book would you like to request? \n";
         cin.ignore();
-        getline(cin,c);
+        getline(cin, c);
         ifstream file("LDB.txt");
         string list[50];
-        int i=0;
-        while(getline(file,list[i])){
+        int i = 0;
+        while (getline(file, list[i]))
+        {
             i++;
         }
-        
-       int r= lin_search(list, i, c);
-       if(r==-1){
-        cout<<"Sorry, the book isn't available right now. but you can always make a request!";
-       }
-       else{
-        cout<<"Book is avilable! Sending the PDF on your email linked with account!";
-       }
-    
-}
+
+        int r = lin_search(list, i, c);
+        if (r == -1)
+        {
+            cout << "Sorry, the book isn't available right now. but you can always make a request!";
+        }
+        else
+        {
+            cout << "Book is avilable! Sending the PDF on your email linked with account!";
+        }
+    }
+
+    void request()
+    {
+        string r;
+        string w;
+        cout << "Enter the book you would like to request online: ";
+        cin.ignore();
+        getline(cin, r);
+        cout << "The book you have requested is: " << r << "?\n"
+             << "(Yes/no)";
+        cin >> w;
+        if (w == "yes" || w == "Yes" || w == "YES")
+        {
+            cout << "Thank you for reaching out! \n"
+                 << "You will recieve an email linked to your account with in few business days! \n"
+                 << "Happy learning!";
+
+            ofstream file("req.txt", ios::app);
+            file << r << '\n';
+        }
+        else
+        {
+
+            cout << "Cancelling the request...";
+        }
+    }
 };
 
 int main()
@@ -228,14 +259,17 @@ int main()
         {
             s.show_book();
         }
-        else if(u==2){
-
+        else if (u == 2)
+        {
+            s.request();
         }
-        else if(u==3){
+        else if (u == 3)
+        {
             s.borrow_book();
         }
-        else{
-            cout<<"Operation doesn't exist: Exit";
+        else
+        {
+            cout << "Operation doesn't exist: Exit";
         }
     }
 
