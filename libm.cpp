@@ -4,6 +4,18 @@
 #include <vector>
 using namespace std;
 
+int lin_search(string a[], int size, string n) {
+
+    for (int i = 0; i < size; i++) {
+
+        if (a[i] == n) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 class Main_page
 {
 public:
@@ -58,10 +70,10 @@ public:
 
     void add_book()
     {
-        std::ifstream File1("LDB.txt");
+        ifstream File1("LDB.txt");
 
         string line;
-        while (std::getline(File1, line))
+        while (getline(File1, line))
         {
             if (!line.empty() && i < 5)
             {
@@ -146,6 +158,29 @@ public:
             cin >> password;
         }
     }
+
+    void borrow_book()
+    {
+        string c;
+        cout << "What book would you like to request? \n";
+        cin.ignore();
+        getline(cin,c);
+        ifstream file("LDB.txt");
+        string list[50];
+        int i=0;
+        while(getline(file,list[i])){
+            i++;
+        }
+        
+       int r= lin_search(list, i, c);
+       if(r==-1){
+        cout<<"Sorry, the book isn't available right now. but you can always make a request!";
+       }
+       else{
+        cout<<"Book is avilable! Sending the PDF on your email linked with account!";
+       }
+    
+}
 };
 
 int main()
@@ -192,6 +227,15 @@ int main()
         if (u == 1)
         {
             s.show_book();
+        }
+        else if(u==2){
+
+        }
+        else if(u==3){
+            s.borrow_book();
+        }
+        else{
+            cout<<"Operation doesn't exist: Exit";
         }
     }
 
