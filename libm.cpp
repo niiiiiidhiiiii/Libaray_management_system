@@ -18,6 +18,22 @@ public:
              << "3. exit" << endl;
         cin >> n;
     }
+    void show_book()
+    {
+        ifstream File1("LDB.txt");
+        if (!File1)
+        {
+            cout << "File not found" << endl;
+            return;
+        }
+        string line;
+
+        while (getline(File1, line))
+        {
+            std::cout << line << '\n';
+        }
+        File1.close();
+    }
 
 protected:
     int password;
@@ -72,22 +88,6 @@ public:
         File2.close();
     }
 
-    void show_book()
-    {
-        ifstream File1("LDB.txt");
-        if (!File1)
-        {
-            cout << "File not found" << endl;
-            return;
-        }
-        string line;
-
-        while (getline(File1, line))
-        {
-            std::cout << line << '\n';
-        }
-        File1.close();
-    }
     void delete_book()
     {
         int n;
@@ -133,31 +133,71 @@ public:
     }
 };
 
+class student : public Main_page
+{
+public:
+    void S_login()
+    {
+        cout << "Enter your student ID: ";
+        cin >> password;
+        while (password != 2111)
+        {
+            cout << "incorrect Id. try again!";
+            cin >> password;
+        }
+    }
+};
+
 int main()
 {
 
     admin m;
     char a;
+    int u;
+    student s;
     m.display();
-    m.login();
-    cout << "What do you wish to do? \n"
-         << "a. Add Book \n"
-         << "b. Check all the books \n"
-         << "c. Delete a book \n"
-         << endl;
-    cin >> a;
+    if (m.n == 1)
+    {
+        m.login();
+        cout << "What do you wish to do? \n"
+             << "a. Add Book \n"
+             << "b. Check all the books \n"
+             << "c. Delete a book \n"
+             << endl;
+        cin >> a;
 
-    if (a == 'a' || a == 'A')
-    {
-        m.add_book();
+        if (a == 'a' || a == 'A')
+        {
+            m.add_book();
+        }
+        else if (a == 'b' || a == 'B')
+        {
+            m.show_book();
+        }
+        else if (a == 'c' || a == 'C')
+        {
+            m.delete_book();
+        }
     }
-    else if (a == 'b' || a == 'B')
+    else if (m.n == 2)
     {
-        m.show_book();
+        s.S_login();
+        cout << "What do you wish to do?!\n"
+             << "1. Check available books \n"
+             << "2. Request a book \n"
+             << "3. borrow the avaiable book's online pdf \n"
+             << endl;
+        cin >> u;
+
+        if (u == 1)
+        {
+            s.show_book();
+        }
     }
-    else if (a == 'c' || a == 'C')
+
+    else
     {
-        m.delete_book();
+        cout << "Thanks for visiting!";
     }
 
     return 0;
